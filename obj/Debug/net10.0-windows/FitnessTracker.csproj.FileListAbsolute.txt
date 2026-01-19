@@ -26,3 +26,4 @@ C:\Users\acer\Desktop\FitnessTracker\bin\Debug\net10.0-windows\runtimes\win-x64\
 C:\Users\acer\Desktop\FitnessTracker\bin\Debug\net10.0-windows\runtimes\win-x64\native\krb5_64.dll
 C:\Users\acer\Desktop\FitnessTracker\bin\Debug\net10.0-windows\runtimes\win-x64\native\krbcc64.dll
 C:\Users\acer\Desktop\FitnessTracker\obj\Debug\net10.0-windows\FitnessT.937EED82.Up2Date
+C:\Users\acer\Desktop\FitnessTracker\obj\Debug\net10.0-windows\FitnessTracker.sourcelink.json
