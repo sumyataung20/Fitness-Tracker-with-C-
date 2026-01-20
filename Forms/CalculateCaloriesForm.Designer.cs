@@ -19,6 +19,11 @@ namespace FitnessTracker.Forms
         private Button buttonCalculate;
         private Label labelResult;
 
+        // New labels for ComboBoxes and Duration
+        private Label labelActivity;
+        private Label labelDescription;
+        private Label labelDuration;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -42,7 +47,23 @@ namespace FitnessTracker.Forms
             this.labelMET = new Label();
             this.buttonCalculate = new Button();
             this.labelResult = new Label();
+
+            // New labels
+            this.labelActivity = new Label();
+            this.labelDescription = new Label();
+            this.labelDuration = new Label();
+
             this.SuspendLayout();
+
+            // Activity Label
+            this.labelActivity.Location = new System.Drawing.Point(50, 0);
+            this.labelActivity.Size = new System.Drawing.Size(200, 20);
+            this.labelActivity.Text = "Activity";
+
+            // Description Label
+            this.labelDescription.Location = new System.Drawing.Point(50, 40);
+            this.labelDescription.Size = new System.Drawing.Size(200, 20);
+            this.labelDescription.Text = "Description";
 
             // comboBoxActivity
             this.comboBoxActivity.Location = new System.Drawing.Point(50, 20);
@@ -54,7 +75,12 @@ namespace FitnessTracker.Forms
             this.comboBoxDescription.Size = new System.Drawing.Size(200, 30);
             this.comboBoxDescription.SelectedIndexChanged += ComboBoxDescription_SelectedIndexChanged;
 
-            // Duration
+            // Duration Label
+            this.labelDuration.Location = new System.Drawing.Point(50, 80);
+            this.labelDuration.Size = new System.Drawing.Size(200, 20);
+            this.labelDuration.Text = "Duration (minutes)";
+
+            // Duration TextBox
             this.textBoxDuration.Location = new System.Drawing.Point(50, 100);
             this.textBoxDuration.PlaceholderText = "Duration (minutes)";
 
@@ -99,6 +125,9 @@ namespace FitnessTracker.Forms
             this.labelResult.Size = new System.Drawing.Size(300, 30);
 
             // Add controls
+            this.Controls.Add(labelActivity);
+            this.Controls.Add(labelDescription);
+            this.Controls.Add(labelDuration);
             this.Controls.Add(comboBoxActivity);
             this.Controls.Add(comboBoxDescription);
             this.Controls.Add(textBoxDuration);

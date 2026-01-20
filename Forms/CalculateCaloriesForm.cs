@@ -12,7 +12,6 @@ namespace FitnessTracker.Forms
         private List<Activity> activities = new List<Activity>();
         private List<ActivityDescription> descriptions = new List<ActivityDescription>();
 
-        // Mapping activity -> metric labels
         private Dictionary<int, string[]> activityMetrics = new Dictionary<int, string[]>
         {
             {1, new string[]{"Steps", "Distance (km)", "Average heart rate"}},
@@ -30,8 +29,10 @@ namespace FitnessTracker.Forms
             InitializeComponent();
             currentUser = user;
 
-            // Pre-fill body weight
             textBoxWeight.Text = currentUser.WeightKg.ToString("F2");
+
+            comboBoxActivity.Text = "Select an activity";
+            comboBoxDescription.Text = "Select description";
 
             LoadActivities();
         }
@@ -42,24 +43,29 @@ namespace FitnessTracker.Forms
             comboBoxActivity.DataSource = activities;
             comboBoxActivity.DisplayMember = "Name";
             comboBoxActivity.ValueMember = "Id";
+
+            comboBoxActivity.SelectedIndex = -1;
+            comboBoxActivity.Text = "Select an activity";
         }
 
         private void ComboBoxActivity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxActivity.SelectedItem == null) return;
-            var activity = (Activity)comboBoxActivity.SelectedItem;
+            if (comboBoxActivity.SelectedItem is not Activity activity)
+                return;
 
             descriptions = Database.GetActivityDescriptions(activity.Id);
             comboBoxDescription.DataSource = descriptions;
             comboBoxDescription.DisplayMember = "Description";
             comboBoxDescription.ValueMember = "Id";
 
-            // Set metric labels
-            if (activityMetrics.ContainsKey(activity.Id))
+            comboBoxDescription.SelectedIndex = -1;
+            comboBoxDescription.Text = "Select description";
+
+            if (activityMetrics.TryGetValue(activity.Id, out var metrics))
             {
-                labelMetric1.Text = activityMetrics[activity.Id][0];
-                labelMetric2.Text = activityMetrics[activity.Id][1];
-                labelMetric3.Text = activityMetrics[activity.Id][2];
+                labelMetric1.Text = metrics[0];
+                labelMetric2.Text = metrics[1];
+                labelMetric3.Text = metrics[2];
             }
 
             labelMET.Text = "MET: 0";
@@ -67,14 +73,16 @@ namespace FitnessTracker.Forms
 
         private void ComboBoxDescription_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxDescription.SelectedItem == null) return;
-            var desc = (ActivityDescription)comboBoxDescription.SelectedItem;
+            if (comboBoxDescription.SelectedItem is not ActivityDescription desc)
+                return;
+
             labelMET.Text = $"MET: {desc.MET}";
         }
 
         private void ButtonCalculate_Click(object sender, EventArgs e)
         {
-            if (comboBoxActivity.SelectedItem == null || comboBoxDescription.SelectedItem == null)
+            if (comboBoxActivity.SelectedItem is not Activity activity ||
+                comboBoxDescription.SelectedItem is not ActivityDescription desc)
             {
                 MessageBox.Show("Please select an activity and description.");
                 return;
@@ -92,23 +100,21 @@ namespace FitnessTracker.Forms
                 return;
             }
 
-            double metric1 = double.TryParse(textBoxMetric1.Text, out metric1) ? metric1 : 0;
-            double metric2 = double.TryParse(textBoxMetric2.Text, out metric2) ? metric2 : 0;
-            double metric3 = double.TryParse(textBoxMetric3.Text, out metric3) ? metric3 : 0;
+            double.TryParse(textBoxMetric1.Text, out double metric1);
+            double.TryParse(textBoxMetric2.Text, out double metric2);
+            double.TryParse(textBoxMetric3.Text, out double metric3);
 
-            double MET = ((ActivityDescription)comboBoxDescription.SelectedItem).MET;
+            double MET = desc.MET;
 
-            // Total calories formula
             double totalCalories = duration * (MET * 3.5 * weight) / 200;
             TotalCaloriesBurned = totalCalories;
 
             labelResult.Text = $"Total Calories Burned: {totalCalories:F2} kcal";
 
-            // Save record to DB
             Database.InsertActivityRecord(
                 currentUser.UserId,
-                ((Activity)comboBoxActivity.SelectedItem).Id,
-                ((ActivityDescription)comboBoxDescription.SelectedItem).Id,
+                activity.Id,
+                desc.Id,
                 duration,
                 metric1,
                 metric2,

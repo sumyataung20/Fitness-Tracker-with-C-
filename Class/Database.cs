@@ -102,5 +102,33 @@ namespace FitnessTracker.Class
                 cmd.ExecuteNonQuery();
             }
         }
+        public static List<(double calories, DateTime date)> GetUserActivitySummary(int userId)
+        {
+            var list = new List<(double, DateTime)>();
+
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                var cmd = new MySqlCommand(
+                    "SELECT total_calories, record_date FROM activityrecords WHERE user_id = @uid",
+                    conn);
+                cmd.Parameters.AddWithValue("@uid", userId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add((
+                            reader.GetDouble("total_calories"),
+                            reader.GetDateTime("record_date")
+                        ));
+                    }
+                }
+            }
+
+            return list;
+        }
+
     }
+
 }
