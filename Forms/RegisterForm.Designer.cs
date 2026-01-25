@@ -18,11 +18,13 @@ namespace FitnessTracker.Forms
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.LinkLabel linkLogin;
 
+        // New label for password toggle
+        private System.Windows.Forms.Label lblTogglePassword;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
                 components.Dispose();
-
             base.Dispose(disposing);
         }
 
@@ -41,6 +43,7 @@ namespace FitnessTracker.Forms
             this.txtTimeTakenDays = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
             this.linkLogin = new System.Windows.Forms.LinkLabel();
+            this.lblTogglePassword = new System.Windows.Forms.Label(); // password toggle
             this.SuspendLayout();
 
             // lblTitle
@@ -68,7 +71,18 @@ namespace FitnessTracker.Forms
             // txtPassword
             this.txtPassword.Location = new System.Drawing.Point(200, 107);
             this.txtPassword.Size = new System.Drawing.Size(180, 23);
-            this.txtPassword.PasswordChar = '*';
+            // this.txtPassword.PasswordChar = '*';
+
+            // lblTogglePassword
+            this.lblTogglePassword.AutoSize = true;
+            this.lblTogglePassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTogglePassword.Font = new System.Drawing.Font("Segoe UI Emoji", 12F);
+            this.lblTogglePassword.Location = new System.Drawing.Point(390, 107); // adjust position
+            this.lblTogglePassword.Name = "lblTogglePassword";
+            this.lblTogglePassword.Size = new System.Drawing.Size(24, 28);
+            this.lblTogglePassword.TabIndex = 20;
+            this.lblTogglePassword.Text = "👁";
+            this.lblTogglePassword.Click += new System.EventHandler(this.lblTogglePassword_Click);
 
             // lblCalorieGoal
             this.lblCalorieGoal.AutoSize = true;
@@ -114,12 +128,13 @@ namespace FitnessTracker.Forms
             this.linkLogin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLogin_LinkClicked);
 
             // RegisterForm
-            this.ClientSize = new System.Drawing.Size(420, 360);
+            this.ClientSize = new System.Drawing.Size(450, 360);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.lblTogglePassword);
             this.Controls.Add(this.lblCalorieGoal);
             this.Controls.Add(this.txtCalorieGoal);
             this.Controls.Add(this.lblWeight);

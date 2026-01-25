@@ -12,6 +12,7 @@ namespace FitnessTracker.Forms
         private List<Activity> activities = new List<Activity>();
         private List<ActivityDescription> descriptions = new List<ActivityDescription>();
 
+        // Adding predefined metrics 
         private Dictionary<int, string[]> activityMetrics = new Dictionary<int, string[]>
         {
             {1, new string[]{"Steps", "Distance (km)", "Average heart rate"}},
@@ -24,6 +25,7 @@ namespace FitnessTracker.Forms
 
         public double TotalCaloriesBurned { get; private set; } = 0;
 
+        //    Calculate Calories Form 
         public CalculateCaloriesForm(User user)
         {
             InitializeComponent();
@@ -37,6 +39,8 @@ namespace FitnessTracker.Forms
             LoadActivities();
         }
 
+
+        //    Select an activity 
         private void LoadActivities()
         {
             activities = Database.GetActivities();
@@ -48,6 +52,7 @@ namespace FitnessTracker.Forms
             comboBoxActivity.Text = "Select an activity";
         }
 
+        //    Select description according to the selected activity 
         private void ComboBoxActivity_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxActivity.SelectedItem is not Activity activity)
@@ -79,6 +84,7 @@ namespace FitnessTracker.Forms
             labelMET.Text = $"MET: {desc.MET}";
         }
 
+
         private void ButtonCalculate_Click(object sender, EventArgs e)
         {
             if (comboBoxActivity.SelectedItem is not Activity activity ||
@@ -106,6 +112,7 @@ namespace FitnessTracker.Forms
 
             double MET = desc.MET;
 
+            // Formula to calculate the calories burned 
             double totalCalories = duration * (MET * 3.5 * weight) / 200;
             TotalCaloriesBurned = totalCalories;
 

@@ -7,6 +7,7 @@ public static class Validator
         return Regex.IsMatch(username, @"^[a-zA-Z0-9]+$");
     }
 
+    //   check password length 
     public static bool ValidatePassword(string password)
     {
         if (password.Length != 12) return false;

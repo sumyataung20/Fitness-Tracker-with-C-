@@ -5,6 +5,7 @@ namespace FitnessTracker.Class
 {
     public class UserService
     {
+        // check is User exist 
         public static bool UsernameExists(string username)
         {
             using (var conn = Database.GetConnection())
@@ -20,6 +21,7 @@ namespace FitnessTracker.Class
             }
         }
 
+        //  User registration 
         public static bool RegisterUser(User user)
         {
             using (var conn = Database.GetConnection())
@@ -35,12 +37,13 @@ namespace FitnessTracker.Class
                     cmd.Parameters.AddWithValue("@password", user.PasswordHash);
                     cmd.Parameters.AddWithValue("@goal", user.CalorieGoal);
                     cmd.Parameters.AddWithValue("@weight", user.WeightKg);
-cmd.Parameters.AddWithValue("@days", user.TimeTakenDays);
+                    cmd.Parameters.AddWithValue("@days", user.TimeTakenDays);
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
 
+        //  user login 
         public static User? Login(string username, string passwordHash)
         {
             using (var conn = Database.GetConnection())

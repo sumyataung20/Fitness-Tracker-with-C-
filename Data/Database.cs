@@ -1,19 +1,3 @@
-// using MySql.Data.MySqlClient;
-
-// namespace FitnessTracker.Class
-// {
-//     public class Database
-//     {
-//         public static MySqlConnection GetConnection()
-//         {
-//             // Use @ to avoid escape issues with special characters in password
-//             string connStr = @"server=localhost;database=fitness_tracker;user=root;password=Hsu&122219;";
-//             return new MySqlConnection(connStr);
-//         }
-//     }
-// }
-
-
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -22,6 +6,7 @@ using FitnessTracker.Models;
 namespace FitnessTracker.Class
 {
     public class Database
+    // Adding connection string 
     {
         private static string connStr = @"server=localhost;database=fitness_tracker;user=root;password=Hsu&122219;";
 
@@ -51,7 +36,7 @@ namespace FitnessTracker.Class
             return list;
         }
 
-        // Fetch descriptions for a given activity
+        // Fetch descriptions for a selected activity
         public static List<ActivityDescription> GetActivityDescriptions(int activityId)
         {
             var list = new List<ActivityDescription>();

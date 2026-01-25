@@ -358,11 +358,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\acer\\Desktop\\FitnessTracker\\FitnessTracker.csproj",
+      "projectUniqueName": "C:\\Users\\acer\\Documents\\213900_SuMyatAung_DDOOCP\\FitnessTracker\\FitnessTracker.csproj",
       "projectName": "FitnessTracker",
-      "projectPath": "C:\\Users\\acer\\Desktop\\FitnessTracker\\FitnessTracker.csproj",
+      "projectPath": "C:\\Users\\acer\\Documents\\213900_SuMyatAung_DDOOCP\\FitnessTracker\\FitnessTracker.csproj",
       "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\acer\\Desktop\\FitnessTracker\\obj\\",
+      "outputPath": "C:\\Users\\acer\\Documents\\213900_SuMyatAung_DDOOCP\\FitnessTracker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config",

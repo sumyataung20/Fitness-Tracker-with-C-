@@ -24,7 +24,7 @@ namespace FitnessTracker.Forms
             UpdateCaloriesProgress();
         }
 
-        // 🔹 Load total burned calories from DB
+        //  Load total burned calories from Database
         private void LoadCaloriesFromDatabase()
         {
             using (MySqlConnection conn = Database.GetConnection())
@@ -42,7 +42,7 @@ namespace FitnessTracker.Forms
             }
         }
 
-        // 🔹 Show activity records text
+        // Show activity records text
         private void LoadActivityRecords()
         {
             lstRecords.Items.Clear();
@@ -72,7 +72,7 @@ namespace FitnessTracker.Forms
             }
         }
 
-        // 🔹 Progress bar + remaining calories
+        // Progress bar + remaining calories
         private void UpdateCaloriesProgress()
         {
             double remaining = currentUser.CalorieGoal - caloriesBurned;
@@ -101,7 +101,7 @@ namespace FitnessTracker.Forms
 
             calcForm.ShowDialog();
 
-            // 🔹 Reload after new record is added
+            //  Reload after new record is added
             LoadCaloriesFromDatabase();
             LoadActivityRecords();
             UpdateCaloriesProgress();

@@ -9,6 +9,9 @@ namespace FitnessTracker.Forms
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogin;
 
+        // New label for toggle
+        private System.Windows.Forms.Label lblTogglePassword;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,6 +26,7 @@ namespace FitnessTracker.Forms
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.lblTogglePassword = new System.Windows.Forms.Label(); // new
             this.SuspendLayout();
             // 
             // lblUsername
@@ -58,6 +62,18 @@ namespace FitnessTracker.Forms
             this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
+            // lblTogglePassword
+            // 
+            this.lblTogglePassword.AutoSize = true;
+            this.lblTogglePassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTogglePassword.Font = new System.Drawing.Font("Segoe UI Emoji", 12F);
+            this.lblTogglePassword.Location = new System.Drawing.Point(310, 67);
+            this.lblTogglePassword.Name = "lblTogglePassword";
+            this.lblTogglePassword.Size = new System.Drawing.Size(24, 28);
+            this.lblTogglePassword.TabIndex = 5;
+            this.lblTogglePassword.Text = "👁";
+            this.lblTogglePassword.Click += new System.EventHandler(this.lblTogglePassword_Click);
+            // 
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(120, 110);
@@ -70,7 +86,8 @@ namespace FitnessTracker.Forms
             // 
             // LoginForm
             // 
-            this.ClientSize = new System.Drawing.Size(350, 170);
+            this.ClientSize = new System.Drawing.Size(360, 170);
+            this.Controls.Add(this.lblTogglePassword); // add toggle
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);

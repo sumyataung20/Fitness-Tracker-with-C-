@@ -7,9 +7,25 @@ namespace FitnessTracker.Forms
 {
     public partial class RegisterForm : Form
     {
+        private bool isPasswordVisible = false;
+
+        private const string EyeOpen = "👁";
+        private const string EyeClosed = "🙈";
+
         public RegisterForm()
         {
             InitializeComponent();
+            txtPassword.UseSystemPasswordChar = true; // default masked
+            lblTogglePassword.Text = EyeOpen;
+        }
+
+        // Handle password hide or show 
+        // password hidden at initial 
+        private void lblTogglePassword_Click(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+            txtPassword.UseSystemPasswordChar = !isPasswordVisible;
+            lblTogglePassword.Text = isPasswordVisible ? EyeClosed : EyeOpen;
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -44,20 +60,17 @@ namespace FitnessTracker.Forms
                 return;
             }
 
-            // Parse weight
-if (!decimal.TryParse(txtWeight.Text.Trim(), out decimal weight))
-{
-    MessageBox.Show("Please enter a valid weight in kg.", "Invalid Input");
-    return;
-}
+            if (!decimal.TryParse(txtWeight.Text.Trim(), out decimal weight))
+            {
+                MessageBox.Show("Please enter a valid weight in kg.", "Invalid Input");
+                return;
+            }
 
-// Parse time taken in days
-if (!int.TryParse(txtTimeTakenDays.Text.Trim(), out int timeTakenDays))
-{
-    MessageBox.Show("Please enter valid number of days.", "Invalid Input");
-    return;
-}
-
+            if (!int.TryParse(txtTimeTakenDays.Text.Trim(), out int timeTakenDays))
+            {
+                MessageBox.Show("Please enter valid number of days.", "Invalid Input");
+                return;
+            }
 
             if (UserService.UsernameExists(username))
             {
@@ -65,32 +78,26 @@ if (!int.TryParse(txtTimeTakenDays.Text.Trim(), out int timeTakenDays))
                 return;
             }
 
-User user = new User
-{
-    Username = username,
-    PasswordHash = password,
-    CalorieGoal = calorieGoal,
-    WeightKg = weight,
-    TimeTakenDays = timeTakenDays
-};
-
+            User user = new User
+            {
+                Username = username,
+                PasswordHash = password,
+                CalorieGoal = calorieGoal,
+                WeightKg = weight,
+                TimeTakenDays = timeTakenDays
+            };
 
             bool success = UserService.RegisterUser(user);
 
             if (success)
-                {
-                    MessageBox.Show("Registration successful!", "Success");
-                    
-                    this.Hide(); // hide register form
+            {
+                MessageBox.Show("Registration successful!", "Success");
 
-                    LoginForm loginForm = new LoginForm();
-                    loginForm.ShowDialog(); // wait until login form closes
-
-                    this.Close(); // close register form completely
-                }
-
-                
-
+                this.Hide();
+                LoginForm loginForm = new LoginForm();
+                loginForm.ShowDialog();
+                this.Close();
+            }
             else
             {
                 MessageBox.Show("Registration failed. Please try again.", "Error");
@@ -98,12 +105,11 @@ User user = new User
         }
 
         private void linkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-            {
-                this.Hide(); // hide register form
-                LoginForm loginForm = new LoginForm();
-                loginForm.ShowDialog(); // show login form modally
-                this.Show(); // show register form again if login closes without success
-            }
-
+        {
+            this.Hide();
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+            this.Show();
+        }
     }
 }
